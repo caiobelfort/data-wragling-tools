@@ -77,7 +77,7 @@ def load_dataframe_from_file_operator(filename: str, format='csv', **kwargs) -> 
     format
         the format of data to read, options are ['csv', 'pickle', 'xlsx'].
     **kwargs
-        Additional arguments for pandas functions.
+        Additional arguments for loader functions.
 
     Returns
     -------
@@ -91,5 +91,29 @@ def load_dataframe_from_file_operator(filename: str, format='csv', **kwargs) -> 
         return pd.read_pickle(filename, **kwargs)
     elif format == 'xlsx':
         return pd.read_excel(filename, **kwargs)
+    else:
+        raise ValueError(f"format {format} isn't compatible.")
+
+
+def write_dataframe_to_file_operator(data: pd.DataFrame, filename: str, format='csv', **kwargs):
+    """
+    Writes dataframe to a local file using method informed
+
+    Parameters
+    ----------
+    filename
+        The file to save the data
+    format
+        The format to save the data, options are ['csv', 'pickle', 'xlsx']
+    kwargs
+        Additional arguments for writer functions
+    """
+
+    if format == 'csv':
+        data.to_csv(filename, **kwargs)
+    elif format == 'pickle':
+        data.to_pickle(filename, **kwargs)
+    elif format == 'xlsx':
+        data.to_excel(filename, **kwargs)
     else:
         raise ValueError(f"format {format} isn't compatible.")
