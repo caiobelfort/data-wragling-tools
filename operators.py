@@ -14,12 +14,18 @@ def merge_operator(lhs: pd.DataFrame,
 
     Parameters
     ----------
-    lhs: Left side dataframe
-    rhs: Right side dataframe
-    keys: Join on these keys
-    how: Options are ['inner', 'left', 'right]
-    keep_cols: Columns to keep on dataframe after merge
-    **kwargs: pandas merge arguments
+    lhs
+        Left side dataframe
+    rhs
+        Right side dataframe
+    keys
+        Join on these keys
+    how
+        Options are ['inner', 'left', 'right]
+    keep_cols
+        Columns to keep on dataframe after merge
+    **kwargs
+        pandas merge arguments
 
     Returns
     -------
@@ -59,3 +65,31 @@ def merge_operator(lhs: pd.DataFrame,
     return merged_data
 
 
+def load_dataframe_from_file_operator(filename: str, format='csv', **kwargs) -> pd.DataFrame:
+    """
+    Loads dataframe from a local file using the method informed
+
+    Parameters
+    ----------
+
+    filename
+        The filename of data.
+    format
+        the format of data to read, options are ['csv', 'pickle', 'xlsx'].
+    **kwargs
+        Additional arguments for pandas functions.
+
+    Returns
+    -------
+    pd.DataFrame
+       The dataframe loaded from the file
+    """
+
+    if format == 'csv':
+        return pd.read_csv(filename, **kwargs)
+    elif format == 'pickle':
+        return pd.read_pickle(filename, **kwargs)
+    elif format == 'xlsx':
+        return pd.read_excel(filename, **kwargs)
+    else:
+        raise ValueError(f"format {format} isn't compatible.")
