@@ -135,6 +135,6 @@ def nan_imputer_operator(data: pd.DataFrame, col_mappers: dict) -> pd.DataFrame:
     cp_data = data.copy()
 
     for col in col_mappers.keys():
-        cp_data[col] = col_mappers[col]
+        cp_data[col] = cp_data.fillna(col_mappers[col])
 
     return cp_data
