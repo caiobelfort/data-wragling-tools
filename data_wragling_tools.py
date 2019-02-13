@@ -1,5 +1,5 @@
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 
 def merge_operator(lhs: pd.DataFrame,
@@ -117,3 +117,24 @@ def write_dataframe_to_file_operator(data: pd.DataFrame, filename: str, format='
         data.to_excel(filename, **kwargs)
     else:
         raise ValueError(f"format {format} isn't compatible.")
+
+
+def nan_imputer_operator(data: pd.DataFrame, col_mappers: dict) -> pd.DataFrame:
+    """
+    Input value to NaNs.
+
+    Parameters
+    ----------
+    data: pd.DataFrame
+    col_mappers: dict in format {col: value}
+
+    Returns
+    -------
+    """
+
+    cp_data = data.copy()
+
+    for col in col_mappers.keys():
+        cp_data[col] = col_mappers[col]
+
+    return cp_data
